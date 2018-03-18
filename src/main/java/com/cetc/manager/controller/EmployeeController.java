@@ -4,12 +4,9 @@ import com.cetc.manager.common.Md5Util;
 import com.cetc.manager.dao.EmployeeDao;
 import com.cetc.manager.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
