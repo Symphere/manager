@@ -9,13 +9,13 @@ import javax.persistence.Table;
 public class Gender {
     @Id
     private int id;
-    private String gendar;
+    private String gender;
 
     @Override
     public String toString() {
         return "Gender{" +
                 "id=" + id +
-                ", gendar='" + gendar + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 
@@ -27,11 +27,11 @@ public class Gender {
         this.id = id;
     }
 
-    public String getGendar() {
-        return gendar;
+    public String getGender() {
+        return gender;
     }
 
-    public void setGendar(String gendar) {
-        this.gendar = gendar;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
