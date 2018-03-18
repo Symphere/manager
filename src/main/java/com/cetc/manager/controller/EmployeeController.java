@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -18,6 +21,20 @@ public class EmployeeController {
     private Employee eraseSecurity(Employee e){
         e.setPassword("");
         return e;
+    }
+
+    private List<Employee> eraseSecurity(List<Employee> es){
+        List<Employee> tmp = new ArrayList<>();
+        for (Employee e:es ){
+            e = eraseSecurity(e);
+            tmp.add(e);
+        }
+        return tmp;
+    }
+
+    @RequestMapping("/all")
+    public List<Employee> findAll(){
+        return eraseSecurity(employeeDao.findAll());
     }
 
     @RequestMapping("/login")
