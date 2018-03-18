@@ -1,5 +1,6 @@
 package com.cetc.manager.controller;
 
+import com.cetc.manager.common.MyUUID;
 import com.cetc.manager.dao.BusinessTripDao;
 import com.cetc.manager.entity.BusinessTrip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class BusinessTripController {
                             @RequestParam(value = "realEndTime", required = false, defaultValue = "2018-01-01 00:00:00") Timestamp realEndTime, // 实际结束时间
                             @RequestParam("approvalJobNumber") String approvalJobNumber){ // 批准人
         BusinessTrip businessTrip = new BusinessTrip();
-        businessTrip.setId(Long.toString(businessTripDao.count()+1));
+        businessTrip.setId(MyUUID.getUUID());
         businessTrip.setStartTime(startTime);
         businessTrip.setJobNumber(jobNumber);
         return businessTripDao.save(businessTrip);

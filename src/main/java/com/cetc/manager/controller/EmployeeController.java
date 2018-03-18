@@ -1,6 +1,7 @@
 package com.cetc.manager.controller;
 
 import com.cetc.manager.common.Md5Util;
+import com.cetc.manager.common.MyUUID;
 import com.cetc.manager.dao.EmployeeDao;
 import com.cetc.manager.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class EmployeeController {
         }
 
         Employee employee = new Employee();
-        employee.setId(Md5Util.getMd5(Long.toString(employeeDao.count() + 1)));
+        employee.setId(MyUUID.getUUID());
         employee.setJobNumber(jobNumber);
         employee.setFamilyName(familyName);
         employee.setFirstName(firstName);
