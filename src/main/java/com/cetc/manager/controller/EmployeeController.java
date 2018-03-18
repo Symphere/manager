@@ -19,12 +19,12 @@ public class EmployeeController {
     EmployeeDao employeeDao;
 
     // 删除employ实体中的秘密信息: 密码
-    private Employee eraseSecurity(Employee e){
+    private static Employee eraseSecurity(Employee e){
         e.setPassword("");
         return e;
     }
 
-    private List<Employee> eraseSecurity(List<Employee> es){
+    private static List<Employee> eraseSecurity(List<Employee> es){
         List<Employee> tmp = new ArrayList<>();
         for (Employee e:es ){
             e = eraseSecurity(e);
