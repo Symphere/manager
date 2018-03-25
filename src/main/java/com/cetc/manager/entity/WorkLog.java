@@ -18,6 +18,8 @@ public class WorkLog {
     private Timestamp endTime;  // 本周结束时间
     private String workContent; // 本周工作
     private String workPlan; // 下周计划
+    private String remark; // 备注
+    private String coordinate;// 协调事项
 
     @Override
     public String toString() {
@@ -29,6 +31,8 @@ public class WorkLog {
                 ", endTime=" + endTime +
                 ", workContent='" + workContent + '\'' +
                 ", workPlan='" + workPlan + '\'' +
+                ", remark='" + remark + '\'' +
+                ", coordinate='" + coordinate + '\'' +
                 '}';
     }
 
@@ -86,5 +90,21 @@ public class WorkLog {
 
     public void setWorkPlan(String workPlan) {
         this.workPlan = workPlan;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(String coordinate) {
+        this.coordinate = coordinate;
     }
 }

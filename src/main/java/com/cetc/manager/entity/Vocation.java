@@ -21,14 +21,7 @@ public class Vocation {
     private Timestamp endTime;
     private Timestamp fillingTime; // 填表时间
     private double vocationDay; // 请假时长
-
-    public double getVocationDay() {
-        return vocationDay;
-    }
-
-    public void setVocationDay(double vocationDay) {
-        this.vocationDay = vocationDay;
-    }
+    private String type; //请假类型
 
     @Override
     public String toString() {
@@ -40,6 +33,8 @@ public class Vocation {
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", fillingTime=" + fillingTime +
+                ", vocationDay=" + vocationDay +
+                ", type='" + type + '\'' +
                 '}';
     }
 
@@ -97,5 +92,21 @@ public class Vocation {
 
     public void setFillingTime(Timestamp fillingTime) {
         this.fillingTime = fillingTime;
+    }
+
+    public double getVocationDay() {
+        return vocationDay;
+    }
+
+    public void setVocationDay(double vocationDay) {
+        this.vocationDay = vocationDay;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
