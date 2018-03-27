@@ -1,5 +1,6 @@
 package com.cetc.manager.controller;
 
+import com.cetc.manager.common.Mapping;
 import com.cetc.manager.common.Md5Util;
 import com.cetc.manager.common.MyUUID;
 import com.cetc.manager.dao.EmployeeDao;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -20,11 +22,15 @@ public class EmployeeController {
 
     // 删除employ实体中的秘密信息: 密码
     private static Employee eraseSecurity(Employee e){
+        if(e == null){
+            return null;
+        }
         e.setPassword("");
         return e;
     }
 
     private static List<Employee> eraseSecurity(List<Employee> es){
+        if(es.isEmpty()) return null;
         List<Employee> tmp = new ArrayList<>();
         for (Employee e:es ){
             e = eraseSecurity(e);
@@ -34,18 +40,22 @@ public class EmployeeController {
     }
 
     @RequestMapping("/all")
-    public List<Employee> findAll(){
-        return eraseSecurity(employeeDao.findAll());
+    public Map<String, Object> findAll(){
+        return Mapping.map(0,"success",eraseSecurity(employeeDao.findAll()));
     }
 
     @RequestMapping("/login")
-    public Employee login(@RequestParam("jobNumber") String jobNumber,@RequestParam("password")String passwordMD5){
+    public Map<String, Object> login(@RequestParam("jobNumber") String jobNumber,@RequestParam("password")String passwordMD5){
 //        return eraseSecurity(employeeDao.findByJobNumberAndPasswordMD5(jobNumber, passwordMD5));
-        return eraseSecurity(employeeDao.findByJobNumberAndPassword(jobNumber, passwordMD5));
+        Employee employee = employeeDao.findByJobNumberAndPassword(jobNumber, passwordMD5);
+        if (employee == null){
+            return Mapping.map(1,"用户名或者密码错误",null);
+        }
+        return Mapping.map(0,"success",eraseSecurity(employeeDao.findByJobNumberAndPassword(jobNumber, passwordMD5)));
     }
 
     @RequestMapping("/regist")
-    public Employee regist(@RequestParam("jobNumber") String jobNumber,
+    public Map<String, Object> regist(@RequestParam("jobNumber") String jobNumber,
                          @RequestParam("familyName")String familyName,
                          @RequestParam("firstName")String firstName,
                          @RequestParam(value = "passwordMD5", required = false, defaultValue = "")String passwordMD5,
@@ -54,7 +64,7 @@ public class EmployeeController {
                          @RequestParam(value = "position",required = false)String position){
         // 检查工号是否已被注册
         if(employeeDao.findByJobNumber(jobNumber) != null){
-            return null;
+            return Mapping.map(0,"工号已存在",null);
         }
 
         passwordMD5 = Md5Util.getMd5(password);
@@ -74,16 +84,16 @@ public class EmployeeController {
         employee.setPosition(position);
 
         employeeDao.save(employee);
-        return eraseSecurity(employee);
+        return Mapping.map(0,"success",eraseSecurity(employee));
     }
 
     @RequestMapping("/findByJobNumber")
-    public Employee findByJobNumber(@RequestParam("jobNumber")String jobNumber){
-        return eraseSecurity(employeeDao.findByJobNumber(jobNumber));
+    public Map<String, Object> findByJobNumber(@RequestParam("jobNumber")String jobNumber){
+        return Mapping.map(0, "success",eraseSecurity(employeeDao.findByJobNumber(jobNumber)));
     }
 
     @RequestMapping("/isRegist")
-    public boolean isRegist(@RequestParam("jobNumber")String jobNumber){
-        return employeeDao.findByJobNumber(jobNumber) != null ;
+    public Map<String, Object> isRegist(@RequestParam("jobNumber")String jobNumber){
+        return Mapping.map(0,"查询成功",employeeDao.findByJobNumber(jobNumber) != null) ;
     }
 }
