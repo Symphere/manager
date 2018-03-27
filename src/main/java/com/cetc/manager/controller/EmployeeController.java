@@ -39,15 +39,16 @@ public class EmployeeController {
     }
 
     @RequestMapping("/login")
-    public Employee login(@RequestParam("jobNumber") String jobNumber,@RequestParam("passwordMD5")String passwordMD5){
-        return eraseSecurity(employeeDao.findByJobNumberAndPasswordMD5(jobNumber, passwordMD5));
+    public Employee login(@RequestParam("jobNumber") String jobNumber,@RequestParam("password")String passwordMD5){
+//        return eraseSecurity(employeeDao.findByJobNumberAndPasswordMD5(jobNumber, passwordMD5));
+        return eraseSecurity(employeeDao.findByJobNumberAndPassword(jobNumber, passwordMD5));
     }
 
     @RequestMapping("/regist")
     public Employee regist(@RequestParam("jobNumber") String jobNumber,
                          @RequestParam("familyName")String familyName,
                          @RequestParam("firstName")String firstName,
-                         @RequestParam("passwordMD5")String passwordMD5,
+                         @RequestParam(value = "passwordMD5", required = false, defaultValue = "")String passwordMD5,
                          @RequestParam(value = "gender" ,required = false,defaultValue="0")int gender,
                          @RequestParam("password")String password,
                          @RequestParam(value = "position",required = false)String position){
@@ -55,10 +56,12 @@ public class EmployeeController {
         if(employeeDao.findByJobNumber(jobNumber) != null){
             return null;
         }
+
+        passwordMD5 = Md5Util.getMd5(password);
         // 密码校验
-        if(passwordMD5.equals(Md5Util.getMd5(password))){
-            return null;
-        }
+//        if(passwordMD5.equals(Md5Util.getMd5(password))){
+//            return null;
+//        }
 
         Employee employee = new Employee();
         employee.setId(MyUUID.getUUID());
