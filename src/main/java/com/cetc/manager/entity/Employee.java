@@ -11,91 +11,78 @@ public class Employee {
     @Id
     private String id;
     private String jobNumber;
-    private String familyName;
+    private String name;
     private int gender;
-    private String firstName;
     private String password;
     private String passwordMD5;
     private String position;
-
-    public void setgender(int gender) {
-        this.gender = gender;
-    }
-
-    public int getgender() {
-
-        return gender;
-    }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id='" + id + '\'' +
                 ", jobNumber='" + jobNumber + '\'' +
-                ", familyName='" + familyName + '\'' +
+                ", name='" + name + '\'' +
                 ", gender=" + gender +
-                ", firstName='" + firstName + '\'' +
                 ", password='" + password + '\'' +
                 ", passwordMD5='" + passwordMD5 + '\'' +
                 ", position='" + position + '\'' +
                 '}';
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setJobNumber(String jobNumber) {
-        this.jobNumber = jobNumber;
-    }
-
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPasswordMD5(String passwordMD5) {
-        this.passwordMD5 = passwordMD5;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getId() {
-
-        return id;
     }
 
     public String getJobNumber() {
         return jobNumber;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public void setJobNumber(String jobNumber) {
+        this.jobNumber = jobNumber;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getPasswordMD5() {
         return passwordMD5;
+    }
+
+    public void setPasswordMD5(String passwordMD5) {
+        this.passwordMD5 = passwordMD5;
     }
 
     public String getPosition() {
         return position;
     }
 
+    public void setPosition(String position) {
+        this.position = position;
+    }
 }

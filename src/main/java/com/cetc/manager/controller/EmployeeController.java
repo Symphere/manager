@@ -56,15 +56,14 @@ public class EmployeeController {
 
     @RequestMapping("/regist")
     public Map<String, Object> regist(@RequestParam("jobNumber") String jobNumber,
-                         @RequestParam("familyName")String familyName,
-                         @RequestParam("firstName")String firstName,
+                         @RequestParam("name")String name,
                          @RequestParam(value = "passwordMD5", required = false, defaultValue = "")String passwordMD5,
                          @RequestParam(value = "gender" ,required = false,defaultValue="0")int gender,
                          @RequestParam("password")String password,
                          @RequestParam(value = "position",required = false)String position){
         // 检查工号是否已被注册
         if(employeeDao.findByJobNumber(jobNumber) != null){
-            return Mapping.map(0,"工号已存在",null);
+            return Mapping.map(1,"工号已存在",null);
         }
 
         passwordMD5 = Md5Util.getMd5(password);
@@ -76,9 +75,8 @@ public class EmployeeController {
         Employee employee = new Employee();
         employee.setId(MyUUID.getUUID());
         employee.setJobNumber(jobNumber);
-        employee.setFamilyName(familyName);
-        employee.setFirstName(firstName);
-        employee.setgender(gender);
+        employee.setName(name);
+        employee.setGender(gender);
         employee.setPassword(password);
         employee.setPasswordMD5(passwordMD5);
         employee.setPosition(position);

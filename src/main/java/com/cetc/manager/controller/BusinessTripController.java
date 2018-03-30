@@ -76,8 +76,8 @@ public class BusinessTripController {
     @RequestMapping("/findAllByJobNumber")
     public Map<String, Object> findByJobNumber(@RequestParam("jobNumber") String jobNumber){
         System.out.println("jobNumber: "+jobNumber);
-        String name = employeeServices.getNameByJobNumber(jobNumber);
-        List<BusinessTrip> businessTrip = businessTripDao.findByJobNumber(jobNumber);
+//        String name = employeeServices.getNameByJobNumber(jobNumber);
+//        List<BusinessTrip> businessTrip = businessTripDao.findByJobNumber(jobNumber);
         return Mapping.map(0,"success",businessTripDao.findByJobNumber(jobNumber));
     }
 

@@ -16,7 +16,7 @@ public class EmployeeServices {
         Map<String, String> map = new HashMap<>();
         List<Employee> employees = employeeDao.findAll();
         for (Employee employee: employees){
-            map.put(employee.getJobNumber(), employee.getFamilyName()+employee.getFirstName());
+            map.put(employee.getJobNumber(), employee.getName());
         }
         return map;
     }
@@ -24,7 +24,7 @@ public class EmployeeServices {
     public String getNameByJobNumber(String jobNumber){
         Employee employee = employeeDao.findByJobNumber(jobNumber);
         if (employee != null){
-            return employee.getFamilyName() + employee.getFirstName();
+            return employee.getName();
         }
         return null;
     }

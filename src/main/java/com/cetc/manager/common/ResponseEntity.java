@@ -1,8 +1,6 @@
 package com.cetc.manager.common;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ResponseEntity implements Serializable {
 
@@ -26,15 +24,15 @@ public class ResponseEntity implements Serializable {
         this.message = message;
     }
 
-    public HashMap<String, Object> getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(HashMap<String, Object> data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    private HashMap<String, Object> data = new HashMap<String, Object>();
+    private Object data;
 
     public ResponseEntity() {
     }
@@ -44,14 +42,9 @@ public class ResponseEntity implements Serializable {
         this.message = message;
     }
 
-    public ResponseEntity(int errCode, String message, Map<String, Object> map) {
+    public ResponseEntity(int errCode, String message, Object o) {
         this.errCode = errCode;
         this.message = message;
-        data.putAll(map);
-    }
-
-    public ResponseEntity put(String key, Object value) {
-        data.put(key, value);
-        return this;
+        this.data = o;
     }
 }
