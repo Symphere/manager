@@ -1,19 +1,20 @@
 package com.cetc.manager.service;
 
-import com.cetc.manager.dao.BusinessTripDao;
-import com.cetc.manager.dao.EmployeeDao;
 import com.cetc.manager.entity.BusinessTrip;
-import com.cetc.manager.entity.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cetc.manager.entity.BusinessTripVO;
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
-public class BusinessTripServices {
+public interface BusinessTripServices {
 
-    @Autowired
-    private BusinessTripDao businessTripDao;
+    List<BusinessTripVO> findAllByJobNumber(String jobNumber);
 
-    @Autowired
-    private EmployeeDao employeeDao;
+    List<BusinessTripVO> findAll();
+
+    BusinessTripVO findWithId(String id);
+
+    boolean saveAndFlush(BusinessTrip businessTrip);
+
+    List<BusinessTripVO> search(String name, String destination, Timestamp startTime, Timestamp endTime, String approvalName);
 }
