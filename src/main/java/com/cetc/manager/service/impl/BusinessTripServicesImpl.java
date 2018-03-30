@@ -3,7 +3,6 @@ package com.cetc.manager.service.impl;
 import com.cetc.manager.dao.BusinessTripDao;
 import com.cetc.manager.entity.BusinessTrip;
 import com.cetc.manager.entity.BusinessTripVO;
-import com.cetc.manager.entity.Employee;
 import com.cetc.manager.service.BusinessTripServices;
 import com.cetc.manager.service.EmployeeService;
 import org.dozer.DozerBeanMapper;
@@ -13,7 +12,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
