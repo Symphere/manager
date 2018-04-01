@@ -67,7 +67,7 @@ public class BusinessTripController {
      * @Auther: Symphere
      * @Date: 2018/3/30
      **/
-    @RequestMapping("/findAllByJobNumber")
+    @RequestMapping("/findByJobNumber")
     public Map<String, Object> findByJobNumber(@RequestParam("jobNumber") String jobNumber){
         return Mapping.map(0,"success",businessTripServices.findAllByJobNumber(jobNumber));
     }

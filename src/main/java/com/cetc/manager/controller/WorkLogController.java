@@ -47,7 +47,7 @@ public class WorkLogController {
         }
     }
 
-    @RequestMapping("/findAllByJobNumber")
+    @RequestMapping("/findByJobNumber")
     public Map<String, Object> findByJobNumber(@RequestParam("jobNumber") String jobNumber){
         System.out.println("jobNumber: "+jobNumber);
         return Mapping.map(0,"success",workLogDao.findByJobNumber(jobNumber));

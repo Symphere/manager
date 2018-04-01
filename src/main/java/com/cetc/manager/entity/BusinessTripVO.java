@@ -1,12 +1,10 @@
 package com.cetc.manager.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -15,7 +13,7 @@ public class BusinessTripVO {
     @Id
     private String id;
     private String jobNumber;
-    
+
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp fillingTime; // 记录时间
 
