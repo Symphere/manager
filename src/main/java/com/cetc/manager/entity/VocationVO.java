@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
-@Entity
-@Table(name = "Vocation")
 public class VocationVO {
 
     @Id

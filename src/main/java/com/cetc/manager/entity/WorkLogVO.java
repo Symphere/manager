@@ -11,9 +11,7 @@ import javax.persistence.Table;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Entity
-@Table(name ="WorkLog")
-public class WorkLog {
+public class WorkLogVO {
     @Id
     private String id;
     private String jobNumber;
@@ -33,10 +31,11 @@ public class WorkLog {
     private String workPlan; // 下周计划
     private String remark; // 备注
     private String coordinate;// 协调事项
+    private String name;
 
     @Override
     public String toString() {
-        return "WorkLog{" +
+        return "WorkLogVO{" +
                 "id='" + id + '\'' +
                 ", jobNumber='" + jobNumber + '\'' +
                 ", fillingTime=" + fillingTime +
@@ -46,7 +45,16 @@ public class WorkLog {
                 ", workPlan='" + workPlan + '\'' +
                 ", remark='" + remark + '\'' +
                 ", coordinate='" + coordinate + '\'' +
+                ", name='" + name + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getId() {

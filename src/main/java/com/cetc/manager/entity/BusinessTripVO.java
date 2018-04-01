@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
-@Entity
-@Table(name = "BusinessTrip")
 public class BusinessTripVO {
     @Id
     private String id;
