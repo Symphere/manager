@@ -29,7 +29,7 @@ public class WorkLogServiceImpl implements WorkLogService {
     WorkLogDao workLogDao;
 
     @Resource(name = "employeeService")
-    private EmployeeService employeeService;
+    EmployeeService employeeService;
 
     Mapper mapper = new DozerBeanMapper();
 
