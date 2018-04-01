@@ -5,11 +5,13 @@ import com.cetc.manager.common.Md5Util;
 import com.cetc.manager.common.MyUUID;
 import com.cetc.manager.dao.EmployeeDao;
 import com.cetc.manager.entity.Employee;
+import com.cetc.manager.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,9 @@ import java.util.Map;
 public class EmployeeController {
     @Autowired
     EmployeeDao employeeDao;
+
+    @Resource(name="employeeService")
+    EmployeeService employeeService;
 
     // 删除employ实体中的秘密信息: 密码
     private static Employee eraseSecurity(Employee e){
@@ -93,5 +98,10 @@ public class EmployeeController {
     @RequestMapping("/isRegist")
     public Map<String, Object> isRegist(@RequestParam("jobNumber")String jobNumber){
         return Mapping.map(0,"查询成功",employeeDao.findByJobNumber(jobNumber) != null) ;
+    }
+
+    @RequestMapping("/getEmployeeList")
+    public Map<String, Object> getEmployeeList(){
+        return Mapping.map(0,"查询成功",employeeService.getJobNumberAndName());
     }
 }
