@@ -15,7 +15,7 @@ import java.util.Map;
 public class EmployeeServiceImpl implements EmployeeService{
 
     @Autowired
-    private EmployeeDao employeeDao;
+    EmployeeDao employeeDao;
 
     public Map<String, String> getJobNumberAndName(){
         List<Employee> employees = employeeDao.findAll();

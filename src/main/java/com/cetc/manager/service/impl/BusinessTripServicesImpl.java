@@ -25,12 +25,12 @@ import java.util.Map;
 public class BusinessTripServicesImpl implements BusinessTripServices {
 
     @Resource(name = "employeeService")
-    private EmployeeService employeeService;
+    EmployeeService employeeService;
 
     @Autowired
-    private BusinessTripDao businessTripDao;
+    BusinessTripDao businessTripDao;
 
-    private Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = new DozerBeanMapper();
 
     /**
      * @Description: 将BusinessTrip DO 转化成 VO

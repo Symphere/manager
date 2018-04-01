@@ -31,9 +31,9 @@ public class VocationServiceImpl implements VocationService {
     @Resource(name="employeeService")
     EmployeeService employeeService;
 
-    private Mapper mapper = new DozerBeanMapper();
+    Mapper mapper = new DozerBeanMapper();
 
-    private List<VocationVO> mapDoToVo(List<Vocation> vocations){
+    List<VocationVO> mapDoToVo(List<Vocation> vocations){
         List<VocationVO> vocationVOS = new ArrayList<>();
         Map<String, String> employees = employeeService.getJobNumberAndName();
         for(Vocation vocation: vocations){
@@ -45,7 +45,7 @@ public class VocationServiceImpl implements VocationService {
         return vocationVOS;
     }
 
-    private VocationVO mapDoToVo(Vocation vocation){
+    VocationVO mapDoToVo(Vocation vocation){
         Map<String, String> employees = employeeService.getJobNumberAndName();
         VocationVO vocationVO = mapper.map(vocation, VocationVO.class);
         vocationVO.setApprovalName(employees.get(vocation.getApprovalJobNumber()));
