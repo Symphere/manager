@@ -110,10 +110,10 @@ public class BusinessTripController {
                                       @RequestParam(value = "endTime",defaultValue = "1970-01-01 00:00:00")Timestamp endTime,
                                       @RequestParam(value="approvalName", defaultValue = "")String approvalName){
 //        return Mapping.map("0", "查询成功", businessTripServices.search(name, destination, startTime, endTime, approvalName));
-        if(Const.DEFAULT_TIME.equals(startTime)){
+        if(Const.DEFAULT_TIMESTAMP.equals(startTime)){
             startTime = null;
         }
-        if(!"".equals(endTime)){
+        if(Const.DEFAULT_TIMESTAMP.equals(endTime)){
             endTime = null;
         }
         return Mapping.map(0, "success",businessTripServices.search(name, destination, startTime, endTime, approvalName));

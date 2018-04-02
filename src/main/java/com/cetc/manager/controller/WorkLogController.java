@@ -1,13 +1,10 @@
 package com.cetc.manager.controller;
 
+import com.cetc.manager.common.Const;
 import com.cetc.manager.common.Mapping;
 import com.cetc.manager.common.MyUUID;
-import com.cetc.manager.dao.WorkLogDao;
 import com.cetc.manager.entity.WorkLog;
 import com.cetc.manager.service.WorkLogService;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,14 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/workLog")
 public class WorkLogController {
-    @Autowired
-    WorkLogDao workLogDao;
 
     @Resource(name="workLogService")
     WorkLogService workLogService;
@@ -68,5 +62,19 @@ public class WorkLogController {
     @RequestMapping("/all")
     public Map<String, Object> findAll(){
         return Mapping.map(0,"success",workLogService.findAll());
+    }
+
+    @RequestMapping("/search")
+    public Map<String, Object> search(@RequestParam(value="name",defaultValue = "") String name,
+                                      @RequestParam(value = "startTime",defaultValue = "1970-01-01")Date startTime,
+                                      @RequestParam(value = "endTime",defaultValue = "1970-01-01")Date endTime){
+//        return Mapping.map("0", "查询成功", businessTripServices.search(name, destination, startTime, endTime, approvalName));
+        if(Const.DEFAULT_DATE.equals(startTime)){
+            startTime = null;
+        }
+        if(Const.DEFAULT_DATE.equals(endTime)){
+            endTime = null;
+        }
+        return Mapping.map(0, "success",workLogService.search(name, startTime, endTime));
     }
 }

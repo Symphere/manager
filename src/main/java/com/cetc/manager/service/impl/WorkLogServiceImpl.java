@@ -8,10 +8,16 @@ import com.cetc.manager.service.WorkLogService;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -76,5 +82,32 @@ public class WorkLogServiceImpl implements WorkLogService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public List<WorkLogVO> search(String name, Date startTime, Date endTime) {
+        Specification specification = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = new ArrayList<>();
+                List<Predicate> predicatesOr1 = new ArrayList<>();
+                if(null != name && !name.equals("") ) {
+                    List<String> jobNumbers = employeeService.getJobNumberByName(name);
+                    for(String jobNumber: jobNumbers){
+                        predicatesOr1.add(criteriaBuilder.equal(root.get("jobNumber"), jobNumber));
+                    }
+                    predicates.add(criteriaBuilder.or(predicatesOr1.toArray(new Predicate[predicatesOr1.size()])));
+                }
+                if(null != startTime){
+                    predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("startTime"), startTime));
+                }
+                if(null != endTime){
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("endTime"), endTime));
+                }
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+        List<WorkLog> workLogs = workLogDao.findAll(specification);
+        return mapDoToVo(workLogs);
     }
 }

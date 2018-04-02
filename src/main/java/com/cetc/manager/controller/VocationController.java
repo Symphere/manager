@@ -1,18 +1,16 @@
 package com.cetc.manager.controller;
 
+import com.cetc.manager.common.Const;
 import com.cetc.manager.common.Mapping;
 import com.cetc.manager.common.MyUUID;
-import com.cetc.manager.dao.VocationDao;
 import com.cetc.manager.entity.Vocation;
 import com.cetc.manager.service.VocationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -91,6 +89,23 @@ public class VocationController {
      **/
     public Map<String, Object> findAll(){
         return Mapping.map(0,"success",vocationService.findAll());
+    }
+
+
+    @RequestMapping("/search")
+    public Map<String, Object> search(@RequestParam(value="name",defaultValue = "") String name,
+                                      @RequestParam(value="type", defaultValue = "")String type,
+                                      @RequestParam(value = "startTime",defaultValue = "1970-01-01 00:00:00")Timestamp startTime,
+                                      @RequestParam(value = "endTime",defaultValue = "1970-01-01 00:00:00")Timestamp endTime,
+                                      @RequestParam(value="approvalName", defaultValue = "")String approvalName){
+//        return Mapping.map("0", "查询成功", businessTripServices.search(name, destination, startTime, endTime, approvalName));
+        if(Const.DEFAULT_TIMESTAMP.equals(startTime)){
+            startTime = null;
+        }
+        if(Const.DEFAULT_TIMESTAMP.equals(endTime)){
+            endTime = null;
+        }
+        return Mapping.map(0, "success",vocationService.search(name, type, startTime, endTime, approvalName));
     }
 }
 
