@@ -143,7 +143,7 @@ public class BusinessTripServicesImpl implements BusinessTripServices {
                     predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("startTime"), startTime));
                 }
                 if(null != endTime){
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("endTime"), endTime));
+                    predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("realEndTime"), endTime));
                 }
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
