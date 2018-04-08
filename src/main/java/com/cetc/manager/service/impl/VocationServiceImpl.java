@@ -53,9 +53,12 @@ public class VocationServiceImpl implements VocationService {
 
     VocationVO mapDoToVo(Vocation vocation){
         Map<String, String> employees = employeeService.getJobNumberAndName();
-        VocationVO vocationVO = mapper.map(vocation, VocationVO.class);
-        vocationVO.setApprovalName(employees.get(vocation.getApprovalJobNumber()));
-        vocationVO.setName(employees.get(vocation.getJobNumber()));
+        VocationVO vocationVO = null;
+        if(vocation != null){
+            vocationVO = mapper.map(vocation, VocationVO.class);
+            vocationVO.setApprovalName(employees.get(vocation.getApprovalJobNumber()));
+            vocationVO.setName(employees.get(vocation.getJobNumber()));
+        }
         return vocationVO;
     }
 

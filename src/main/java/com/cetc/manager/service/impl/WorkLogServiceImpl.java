@@ -54,8 +54,11 @@ public class WorkLogServiceImpl implements WorkLogService {
 
     WorkLogVO mapDoToVo(WorkLog workLog){
         Map<String, String> employees = employeeService.getJobNumberAndName();
-        WorkLogVO workLogVO = mapper.map(workLog, WorkLogVO.class);
-        workLogVO.setName(employees.get(workLog.getJobNumber()));
+        WorkLogVO workLogVO = null;
+        if(workLog !=  null){
+            workLogVO = mapper.map(workLog, WorkLogVO.class);
+            workLogVO.setName(employees.get(workLog.getJobNumber()));
+        }
         return workLogVO;
     }
 
