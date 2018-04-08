@@ -4,6 +4,7 @@ import com.cetc.manager.common.Const;
 import com.cetc.manager.common.Mapping;
 import com.cetc.manager.common.MyUUID;
 import com.cetc.manager.entity.BusinessTrip;
+import com.cetc.manager.entity.BusinessTripVO;
 import com.cetc.manager.service.BusinessTripServices;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -55,9 +57,6 @@ public class BusinessTripController {
         } else {
             return Mapping.map(1,"保存失败", false);
         }
-
-
-
     }
 
     /**
@@ -69,7 +68,11 @@ public class BusinessTripController {
      **/
     @RequestMapping("/findByJobNumber")
     public Map<String, Object> findByJobNumber(@RequestParam("jobNumber") String jobNumber){
-        return Mapping.map(0,"success",businessTripServices.findAllByJobNumber(jobNumber));
+        List<BusinessTripVO> businessTripVOS = businessTripServices.findAllByJobNumber(jobNumber);
+        if(businessTripVOS.isEmpty()){
+            return Mapping.map(1, "Not Found", null);
+        }
+        return Mapping.map(0,"success",businessTripVOS);
     }
 
     /**
@@ -81,7 +84,11 @@ public class BusinessTripController {
      **/
     @RequestMapping("/findById")
     public Map<String, Object> findById(@RequestParam("id")String id){
-        return Mapping.map(0,"success",businessTripServices.findWithId(id));
+        BusinessTripVO businessTripVO = businessTripServices.findWithId(id);
+        if(businessTripVO == null){
+            return Mapping.map(1,"Not found.",null);
+        }
+        return Mapping.map(0,"success",businessTripVO);
     }
 
     @RequestMapping("/all")
@@ -93,7 +100,11 @@ public class BusinessTripController {
     * @Date: 2018/3/30
     **/
     public Map<String, Object> findAll(){
-        return Mapping.map(0,"success",businessTripServices.findAll());
+        List<BusinessTripVO> businessTripVOList = businessTripServices.findAll();
+        if(businessTripVOList.isEmpty()){
+            return Mapping.map(1,"Not found.", null);
+        }
+        return Mapping.map(0,"success",businessTripVOList);
     }
 
     /**
@@ -116,6 +127,10 @@ public class BusinessTripController {
         if(Const.DEFAULT_TIMESTAMP.equals(endTime)){
             endTime = null;
         }
-        return Mapping.map(0, "success",businessTripServices.search(name, destination, startTime, endTime, approvalName));
+        List<BusinessTripVO> businessTripVOS = businessTripServices.search(name, destination, startTime, endTime, approvalName);
+        if(businessTripVOS.isEmpty()){
+            return Mapping.map(1, "Not found.",null);
+        }
+        return Mapping.map(0, "success",businessTripVOS);
     }
 }

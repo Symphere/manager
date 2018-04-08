@@ -53,9 +53,12 @@ public class BusinessTripServicesImpl implements BusinessTripServices {
 
     private BusinessTripVO mapDoToVo(BusinessTrip businessTrip){
         Map<String, String> employees = employeeService.getJobNumberAndName();
-        BusinessTripVO businessTripVO = mapper.map(businessTrip, BusinessTripVO.class);
-        businessTripVO.setApprovalName(employees.get(businessTrip.getApprovalJobNumber()));
-        businessTripVO.setName(employees.get(businessTrip.getJobNumber()));
+        BusinessTripVO businessTripVO = null;
+        if(businessTrip != null) {
+            businessTripVO = mapper.map(businessTrip, BusinessTripVO.class);
+            businessTripVO.setApprovalName(employees.get(businessTrip.getApprovalJobNumber()));
+            businessTripVO.setName(employees.get(businessTrip.getJobNumber()));
+        }
         return businessTripVO;
     }
 
