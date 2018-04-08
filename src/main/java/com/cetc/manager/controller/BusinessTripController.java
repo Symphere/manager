@@ -37,8 +37,8 @@ public class BusinessTripController {
                                    @RequestParam("mission")  String mission, // 出差任务
                                    @RequestParam("destination")  String destination,// 出差地
                                    @RequestParam("startTime") Timestamp startTime, // 开始时间
-                                   @RequestParam(value = "planEndTime",required = false, defaultValue = "2018-01-01 00:00:00") Timestamp planEndTime, // 预计结束时间
-                                   @RequestParam(value = "realEndTime", required = false, defaultValue = "2018-01-01 00:00:00") Timestamp realEndTime, // 实际结束时间
+                                   @RequestParam(value = "planEndTime",required = false, defaultValue = "1970-01-01 00:00:00") Timestamp planEndTime, // 预计结束时间
+                                   @RequestParam(value = "realEndTime", required = false, defaultValue = "1970-01-01 00:00:00") Timestamp realEndTime, // 实际结束时间
                                    @RequestParam("approvalJobNumber") String approvalJobNumber){ // 批准人
         BusinessTrip businessTrip = new BusinessTrip();
         businessTrip.setId(id.equals("")?MyUUID.getUUID():id);
