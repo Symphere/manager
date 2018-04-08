@@ -4,6 +4,7 @@ import com.cetc.manager.common.Const;
 import com.cetc.manager.common.Mapping;
 import com.cetc.manager.common.MyUUID;
 import com.cetc.manager.entity.Vocation;
+import com.cetc.manager.entity.VocationVO;
 import com.cetc.manager.service.VocationService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -63,7 +65,11 @@ public class VocationController {
     * @Date: 2018/4/1
     **/
     public Map<String, Object> findById(String id){
-        return Mapping.map(0,"success", vocationService.findWithId(id));
+        VocationVO vocationVO = vocationService.findWithId(id);
+        if(vocationVO == null){
+            return Mapping.map(1,"Not Found", null);
+        }
+        return Mapping.map(0,"success", vocationVO);
     }
 
     @RequestMapping("/findByJobNumber")
@@ -75,7 +81,11 @@ public class VocationController {
     * @Date: 2018/4/1
     **/
     public Map<String, Object> findByJobNumber(String jobNumber){
-        return Mapping.map(0,"success",vocationService.findByJobNumber(jobNumber));
+        List<VocationVO> vocationVOS = vocationService.findByJobNumber(jobNumber);
+        if(vocationVOS.isEmpty()){
+            return Mapping.map(1,"Not Found",null);
+        }
+        return Mapping.map(0,"success",vocationVOS);
     }
 
 
@@ -88,7 +98,11 @@ public class VocationController {
      * @Date: 2018/4/1
      **/
     public Map<String, Object> findAll(){
-        return Mapping.map(0,"success",vocationService.findAll());
+        List<VocationVO> vocationVOS = vocationService.findAll();
+        if(vocationVOS.isEmpty()){
+            Mapping.map(1,"Not Found",null);
+        }
+        return Mapping.map(0,"success",vocationVOS);
     }
 
 
@@ -105,7 +119,11 @@ public class VocationController {
         if(Const.DEFAULT_TIMESTAMP.equals(endTime)){
             endTime = null;
         }
-        return Mapping.map(0, "success",vocationService.search(name, type, startTime, endTime, approvalName));
+        List<VocationVO> vocationVOS = vocationService.search(name, type, startTime, endTime, approvalName);
+        if(vocationVOS.isEmpty()){
+            return Mapping.map(0, "success", null);
+        }
+        return Mapping.map(0, "success", vocationVOS);
     }
 }
 
