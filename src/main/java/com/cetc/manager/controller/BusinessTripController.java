@@ -53,9 +53,9 @@ public class BusinessTripController {
         businessTrip.setApprovalJobNumber(approvalJobNumber);
 
         if(businessTripServices.saveAndFlush(businessTrip)){
-            return Mapping.map(0,"保存", true);
+            return Mapping.mapSuccess(true);
         } else {
-            return Mapping.map(1,"保存失败", false);
+            return Mapping.map(Mapping.SAVE_FAILURE, false);
         }
     }
 
@@ -70,9 +70,9 @@ public class BusinessTripController {
     public Map<String, Object> findByJobNumber(@RequestParam("jobNumber") String jobNumber){
         List<BusinessTripVO> businessTripVOS = businessTripServices.findAllByJobNumber(jobNumber);
         if(businessTripVOS.isEmpty()){
-            return Mapping.map(1, "Not Found", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0,"success",businessTripVOS);
+        return Mapping.mapSuccess(businessTripVOS);
     }
 
     /**
@@ -86,9 +86,9 @@ public class BusinessTripController {
     public Map<String, Object> findById(@RequestParam("id")String id){
         BusinessTripVO businessTripVO = businessTripServices.findWithId(id);
         if(businessTripVO == null){
-            return Mapping.map(1,"Not found.",null);
+            return Mapping.map(Mapping.NOT_FOUND,null);
         }
-        return Mapping.map(0,"success",businessTripVO);
+        return Mapping.mapSuccess(businessTripVO);
     }
 
     @RequestMapping("/all")
@@ -102,9 +102,9 @@ public class BusinessTripController {
     public Map<String, Object> findAll(){
         List<BusinessTripVO> businessTripVOList = businessTripServices.findAll();
         if(businessTripVOList.isEmpty()){
-            return Mapping.map(1,"Not found.", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0,"success",businessTripVOList);
+        return Mapping.mapSuccess(businessTripVOList);
     }
 
     /**
@@ -129,8 +129,8 @@ public class BusinessTripController {
         }
         List<BusinessTripVO> businessTripVOS = businessTripServices.search(name, destination, startTime, endTime, approvalName);
         if(businessTripVOS.isEmpty()){
-            return Mapping.map(1, "Not found.",null);
+            return Mapping.map(Mapping.NOT_FOUND,null);
         }
-        return Mapping.map(0, "success",businessTripVOS);
+        return Mapping.mapSuccess(businessTripVOS);
     }
 }

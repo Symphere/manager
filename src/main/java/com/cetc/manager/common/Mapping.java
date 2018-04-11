@@ -10,6 +10,7 @@ public class Mapping {
     public static final int ALREADY_REGISTERED = 2;
     public static final int UNREGISTERED = 3;
     public static final int LOGIN_FAILED = 4;
+    public static final int SAVE_FAILURE = 5;
 
     public static Map<String, Object> map(int status, String msg, Object o) {
         Map<String, Object> map = new HashMap<>();
@@ -31,6 +32,8 @@ public class Mapping {
                 return map(UNREGISTERED, "工号未注册", o);
             case LOGIN_FAILED:
                 return map(LOGIN_FAILED, "用户名密码不匹配", o);
+            case SAVE_FAILURE:
+                return map(SAVE_FAILURE, "存储数据失败", o);
             default:
                 return map(-1, "Unknown Error", o);
         }
