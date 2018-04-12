@@ -44,9 +44,9 @@ public class WorkLogController {
         workLog.setRemark(remark);
         workLog.setCoordinate(coordinate);
         if (workLogService.saveAndFlush(workLog)) {
-            return Mapping.map(0, "success", true);
+            return Mapping.mapSuccess(true);
         } else {
-            return Mapping.map(1, "failure", false);
+            return Mapping.map(Mapping.SAVE_FAILURE, false);
         }
     }
 
@@ -55,27 +55,27 @@ public class WorkLogController {
         System.out.println("jobNumber: " + jobNumber);
         List<WorkLogVO> workLogVOS = workLogService.findByJobNumber(jobNumber);
         if (workLogVOS.isEmpty()) {
-            return Mapping.map(1, "not found", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0, "success", workLogVOS);
+        return Mapping.mapSuccess(workLogVOS);
     }
 
     @RequestMapping("/findById")
     public Map<String, Object> findById(@RequestParam("id") String id) {
         WorkLogVO workLogVO = workLogService.findWithId(id);
         if (workLogVO == null) {
-            return Mapping.map(1, "not found", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0, "success", workLogVO);
+        return Mapping.mapSuccess(workLogVO);
     }
 
     @RequestMapping("/all")
     public Map<String, Object> findAll() {
         List<WorkLogVO> workLogVOS = workLogService.findAll();
         if (workLogVOS.isEmpty()) {
-            return Mapping.map(1, "not found", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0, "success", workLogVOS);
+        return Mapping.mapSuccess(workLogVOS);
     }
 
     @RequestMapping("/search")
@@ -91,8 +91,8 @@ public class WorkLogController {
         }
         List<WorkLogVO> workLogVOS = workLogService.search(name, startTime, endTime);
         if (workLogVOS.isEmpty()) {
-            return Mapping.map(1, "not found", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0, "success", workLogVOS);
+        return Mapping.mapSuccess(workLogVOS);
     }
 }

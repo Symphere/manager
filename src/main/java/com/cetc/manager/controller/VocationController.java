@@ -50,9 +50,9 @@ public class VocationController {
         vocation.setVocationDay(vocationDay);
         vocation.setType(type);
         if(vocationService.saveAndFlush(vocation)){
-            return Mapping.map(0,"success",true);
+            return Mapping.mapSuccess(true);
         } else {
-            return Mapping.map(1,"存储失败",false);
+            return Mapping.map(Mapping.SAVE_FAILURE,false);
         }
     }
 
@@ -67,9 +67,9 @@ public class VocationController {
     public Map<String, Object> findById(String id){
         VocationVO vocationVO = vocationService.findWithId(id);
         if(vocationVO == null){
-            return Mapping.map(1,"Not Found", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0,"success", vocationVO);
+        return Mapping.mapSuccess(vocationVO);
     }
 
     @RequestMapping("/findByJobNumber")
@@ -83,9 +83,9 @@ public class VocationController {
     public Map<String, Object> findByJobNumber(String jobNumber){
         List<VocationVO> vocationVOS = vocationService.findByJobNumber(jobNumber);
         if(vocationVOS.isEmpty()){
-            return Mapping.map(1,"Not Found",null);
+            return Mapping.map(Mapping.NOT_FOUND,null);
         }
-        return Mapping.map(0,"success",vocationVOS);
+        return Mapping.mapSuccess(vocationVOS);
     }
 
 
@@ -100,9 +100,9 @@ public class VocationController {
     public Map<String, Object> findAll(){
         List<VocationVO> vocationVOS = vocationService.findAll();
         if(vocationVOS.isEmpty()){
-            Mapping.map(1,"Not Found",null);
+            Mapping.map(Mapping.NOT_FOUND,null);
         }
-        return Mapping.map(0,"success",vocationVOS);
+        return Mapping.mapSuccess(vocationVOS);
     }
 
 
@@ -121,9 +121,9 @@ public class VocationController {
         }
         List<VocationVO> vocationVOS = vocationService.search(name, type, startTime, endTime, approvalName);
         if(vocationVOS.isEmpty()){
-            return Mapping.map(0, "success", null);
+            return Mapping.map(Mapping.NOT_FOUND, null);
         }
-        return Mapping.map(0, "success", vocationVOS);
+        return Mapping.mapSuccess(vocationVOS);
     }
 }
 
